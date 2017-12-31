@@ -1,0 +1,72 @@
+<br>
+<div class="col-12">
+  <tr>
+    <td *ngFor="let marketIndex of marketIndexes" class="col-4 market-index">
+      <mat-card>
+        <span style="color:#888888">&nbsp;{{marketIndex.name}}</span>
+        <span appMarketIndexColor>{{marketIndex.price}}</span>
+        <span appMarketIndexColor>&nbsp;{{marketIndex.percent}}%</span>
+        <span>&nbsp;{{marketIndex.total|moneyUnit}}</span>
+      </mat-card>
+    </td>
+  </tr>
+</div>
+<br>
+<mat-tab-group class="demo-tab-group">
+  <mat-tab label="自选" (click)="getSelectedStockList()">
+    <mat-card-content class="col-12">
+      <table class="col-12 example-tooltip-host" matTooltip="点击排序" matTooltipPosition="after" style="background-color:#d4d4d4;height:32px;">
+        <tr class="col-12">
+          <th class="col-1" (click)="sortStock('id',true)">股票代码</th>
+          <th class="col-1" (click)="sortStock('name',true)">股票名称</th>
+          <th class="col-1" (click)="sortStock('startPrice',true)">开盘价</th>
+          <th class="col-1" (click)="sortStock('nowPrice',true)">最新价</th>
+          <th class="col-1" (click)="sortStock('minPrice',true)">最低价</th>
+          <th class="col-1" (click)="sortStock('maxPrice',true)">最高价</th>
+          <th class="col-1" (click)="sortStock('volume',true)">成交量</th>
+          <th class="col-1" (click)="sortStock('amount',true)">成交金额</th>
+          <th class="col-1" (click)="sortStock('marketValue',true)">总市值</th>
+          <th class="col-1" (click)="sortStock('circulationValue',true)">流通市值</th>
+        </tr>
+      </table>
+    </mat-card-content>
+    <app-eightstock-listitem [stock]="stock" *ngFor="let stock of selectedStocks"></app-eightstock-listitem>
+  </mat-tab>
+  <mat-tab label="行情">
+    <mat-card-content class="col-12">
+      <table class="col-12 example-tooltip-host" matTooltip="点击排序" matTooltipPosition="after"  style="background-color:#d4d4d4;height:32px;">
+        <tr class="col-12">
+          <th class="col-1" (click)="sortStock('id',false)">股票代码</th>
+          <th class="col-1" (click)="sortStock('name',false)">股票名称</th>
+          <th class="col-1" (click)="sortStock('startPrice',false)">开盘价</th>
+          <th class="col-1" (click)="sortStock('nowPrice',false)">最新价</th>
+          <th class="col-1" (click)="sortStock('minPrice',false)">最低价</th>
+          <th class="col-1" (click)="sortStock('maxPrice',false)">最高价</th>
+          <th class="col-1" (click)="sortStock('volume',false)">成交量</th>
+          <th class="col-1" (click)="sortStock('amount',false)">成交金额</th>
+          <th class="col-1" (click)="sortStock('marketValue',false)">总市值</th>
+          <th class="col-1" (click)="sortStock('circulationValue',false)">流通市值</th>
+        </tr>
+      </table>
+    </mat-card-content>
+    <app-eightstock-listitem [stock]="stock" *ngFor="let stock of stocks"></app-eightstock-listitem>
+  </mat-tab>
+  <mat-tab label="资讯">
+    <br>
+    <mat-card class="col-11" *ngFor="let stockNews of stockNewsList">
+      <table class="col-12 example-tooltip-host" matTooltip="点击评论" matTooltipPosition="before" (click)="openDialog(stockNews.objectId)">
+        <tr>
+          <td class="col-3" colspan="1" rowspan="2">
+            <img mat-card-image class="col-12" src={{stockNews.imagePath}} alt="{{stockNews.title}}">
+          </td>
+          <td mat-card-title class="col-8" colspan="1" rowspan="1">{{stockNews.title}}</td>
+        </tr>
+        <tr>
+          <mat-card-content  class="col-10" colspan="1" rowspan="1">
+              {{stockNews.content}}
+          </mat-card-content>
+        </tr>
+      </table>
+    </mat-card>
+  </mat-tab>
+</mat-tab-group>
